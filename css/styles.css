@@ -327,6 +327,7 @@ h1 {
 }
 
 .material-bottom {
+    width: auto;
     background: var(--color-dark);
     border-radius: 10px;
     box-shadow: 0 15px 0 0 darken(var(--color-dark), 5%), 0 0 20px 0 #555;
@@ -335,7 +336,14 @@ h1 {
     top: 0;
     color: var(--color-white);
 }
-
+.material-bottom span {
+    display: inline-block;
+    padding: 8px 16px;
+}
+.material-radio span {
+    display: inline-block;
+    padding: 8px 16px;
+}
 .material-bottom:active {
     top: 8px;
     box-shadow: 0 8px 0 0 darken(var(--color-dark), 5%);
