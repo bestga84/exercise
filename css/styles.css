@@ -1,0 +1,317 @@
+:root {
+    --color-border: #000;
+    --color-opacity: rgba(255, 255, 255, 0);
+    --color_dark: #32557f;
+    --color-light: #f0f0f0;
+    --color-white: #fff;
+    --color-title: #442200;
+}
+
+/* ================================================ */
+/* ================ ОСНОВНЫЕ СТИЛИ ================ */
+/* .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+} */
+  
+
+/* ШРИФТ */
+.balsamiq-sans-regular {
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.balsamiq-sans-bold {
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+  
+.balsamiq-sans-regular-italic {
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+  
+.balsamiq-sans-bold-italic {
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.pacifico-regular {
+    font-family: "Pacifico", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 400 to 700
+
+.caveat-<uniquifier> {
+  font-family: "Caveat", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+  */
+
+/*
+// <uniquifier>: Use a unique and descriptive class name
+.kablammo-<uniquifier> {
+  font-family: "Kablammo", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "MORF" 0;
+}
+  */
+
+  /* ШРИФТ */
+
+/*
+.output {
+    font-family: "Kablammo", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "MORF" 0;
+}
+    */
+  
+  
+  /* КОНТЕЙНЕР */
+.container {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+
+}
+
+
+  @media screen and (min-width: 480px) {
+      .container {
+          width: 448px;
+      }
+  }
+  @media screen and (min-width: 768px) {
+      .container {
+          width: 752px;
+      }
+  }
+  @media screen and (min-width: 1200px) {
+      .container {
+          width: 1200px;
+      }
+  }
+    
+  
+    
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+    
+  ul,
+  ol {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-left: 0;
+  }
+    
+  .list {
+      list-style: none;
+  }
+    
+  .link {
+      text-decoration: none;
+  }
+  /* ============ End of ОСНОВНЫЕ СТИЛИ ============== */
+  /* ================================================ */
+
+
+
+
+/* ================================================== */
+/* ================= СТИЛИ в HEADER ================= */
+header {
+    background: linear-gradient(to top, rgb(79, 206, 199), 20%, rgb(127, 241, 207));
+}
+.container-header,
+.container-footer {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: linear-gradient(to top, rgb(238, 166, 72), 20%, rgb(240, 241, 127));
+}
+@media screen and (min-width: 480px) {
+    .container-header,
+    .container-footer {
+        width: 448px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .container-header,
+    .container-footer {
+        width: 752px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .container-header,
+    .container-footer {
+        width: 1200px;
+    }
+}
+
+.menu-item {
+    width: 200px;
+    border: solid 2px black;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background-color: orange;
+    font-size: 18px;
+}
+.menu-item:hover {
+    box-shadow: inset 0px 0px 8px rgba(0,0,0,0.9)
+}
+
+.main-menu {
+    padding: 16px;
+}
+/* ============ End of СТИЛИ в HEADER =============== */
+/* ================================================== */
+
+
+
+
+/* ================================================ */
+/* ================= СТИЛИ в MAIN ================= */
+main {
+    background: linear-gradient(to bottom, rgb(79, 206, 199), 20%, rgb(127, 241, 207));
+}
+
+.section-background {
+    background: linear-gradient(to top, rgb(238, 208, 72), 20%, rgb(240, 241, 127));
+}
+
+h1 {
+    font-family: "Pacifico", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    font-size: 32px;
+    padding: 16px;
+    color: var(--color-title);
+}
+
+.tests {
+    padding: 16px;
+}
+
+.quwestion {
+    display: block;
+    width: 88%;
+    border: solid 2px black;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media screen and (min-width: 480px) {
+    .quwestion {
+        width: 380px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .quwestion {
+        width: 600px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .quwestion {
+        width: 800px;
+    }
+}
+.quwestion:hover {
+    box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9)
+}
+
+.paragraph,
+.right-answer,
+.wrong-answer {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 8px;
+}
+
+.paragraph {
+    padding: 8px;
+    color: var(--color_dark);
+}
+
+.answers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+
+.material-bottom {
+    background: var(--color_dark);
+    border-radius: 10px;
+    box-shadow: 0 15px 0 0 darken(var(--color_dark), 5%), 0 0 20px 0 #555;
+    transition: all .2s;
+    position: relative;
+    top: 0;
+    color: var(--color-white);
+}
+
+.material-bottom:active {
+    top: 8px;
+    box-shadow: 0 8px 0 0 darken(var(--color_dark), 5%);
+}
+
+.material-bottom:hover {
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.9)
+}
+/* ============ End of СТИЛИ в MAIN =============== */
+/* ================================================ */
+
+
+/* ================================================ */
+/* ================= СТИЛИ в FOOTER ================= */
+footer {
+    margin-top: -8px;
+    background: linear-gradient(to top, rgb(79, 206, 199), 20%, rgb(127, 241, 207));
+}
+.container-footer {
+    background: linear-gradient(to bottom, rgb(230, 153, 53), 20%, rgb(238, 209, 79));
+}
+
+.paragraph-footer {
+    font-size: 18px;
+    margin: 8px;
+    padding: 24px;
+    color: var(--color_dark);
+}
+
+/* ============ End of СТИЛИ в MAIN =============== */
+/* ================================================ */
