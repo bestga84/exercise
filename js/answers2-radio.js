@@ -23,9 +23,40 @@ testsContainer.addEventListener('click', (event) => {
     });
   }
 });
+//==============================================================
+
+
+/*
+const testsContainer = document.querySelector('.tests');
+
+testsContainer.addEventListener('click', (event) => {
+  const target = event.target;
+  const checkbox = target.closest('label'); // Find the closest label element
+
+  // Check if clicked element is a label within the answers container
+  if (checkbox && checkbox.classList.contains('answers-checkbox')) {
+    const checkboxInput = checkbox.querySelector('input');
+
+    // Update checked state for the checkbox
+    checkboxInput.checked = !checkboxInput.checked; // Toggle checked state
+
+    // Check if all checkboxes (right and wrong) are checked
+    const allChecked = checkbox.closest('.quwestion-checkbox').querySelectorAll('input:checked');
+    const totalCheckboxes = checkbox.closest('.quwestion-checkbox').querySelectorAll('input');
+    const allSelected = allChecked.length === totalCheckboxes.length;
+
+    // Update background color based on all selections
+    checkbox.closest('.quwestion').style.backgroundColor = allSelected ? 'lightgreen' : 'var(--color_dark)';
+
+    // No need to style individual checkboxes as they are part of the label
+  }
+});
+*/
 
 
 
+
+// ==============================================================
 
 // const testsContainer = document.querySelector('.tests');
 
