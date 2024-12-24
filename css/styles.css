@@ -335,15 +335,9 @@ h1 {
     position: relative;
     top: 0;
     color: var(--color-white);
+    padding: 16px;
 }
-.material-bottom span {
-    display: inline-block;
-    padding: 8px 16px;
-}
-.material-radio span {
-    display: inline-block;
-    padding: 8px 16px;
-}
+
 .material-bottom:active {
     top: 8px;
     box-shadow: 0 8px 0 0 darken(var(--color-dark), 5%);
@@ -361,6 +355,7 @@ h1 {
     position: relative;
     top: 0;
     color: var(--color-white);
+    padding: 16px;
 }
 .material-radio:hover {
     box-shadow: 0px 4px 8px rgba(0,0,0,0.9)
