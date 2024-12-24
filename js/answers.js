@@ -6,17 +6,17 @@ testsContainer.addEventListener('click', (event) => {
   if (target.classList.contains('right-answer')) {
     target.closest('.quwestion').style.backgroundColor = 'lightgreen';
     target.style.backgroundColor = 'yellow';
-    target.style.color = 'var(--color_dark)';  
+    target.style.color = 'var(--color-dark)';  
     target.closest('.answers').querySelectorAll('.wrong-answer').forEach(button => {
-      button.style.backgroundColor = 'var(--color_dark)';   // #f0f0f0
+      button.style.backgroundColor = 'var(--color-dark)';   // #f0f0f0
       button.style.color = 'white';
     });
   } else if (target.classList.contains('wrong-answer')) {
     target.closest('.quwestion').style.backgroundColor = 'lightcoral';
     target.style.backgroundColor = 'pink';
-    target.style.color = 'var(--color_dark)';
+    target.style.color = 'var(--color-dark)';
     target.closest('.answers').querySelectorAll('.right-answer').forEach(button => {
-      button.style.backgroundColor = 'var(--color_dark)'; 
+      button.style.backgroundColor = 'var(--color-dark)'; 
       button.style.color = 'white';
     });
   }

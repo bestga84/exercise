@@ -1,7 +1,7 @@
 :root {
     --color-border: #000;
     --color-opacity: rgba(255, 255, 255, 0);
-    --color_dark: #32557f;
+    --color-dark: #32557f;
     --color-light: #f0f0f0;
     --color-white: #fff;
     --color-title: #442200;
@@ -194,7 +194,10 @@ header {
 }
 
 .main-menu {
-    padding: 16px;
+    padding: 16px;    
+}
+.main-menu a {
+    color: var(--color-title);
 }
 /* ============ End of СТИЛИ в HEADER =============== */
 /* ================================================== */
@@ -209,7 +212,7 @@ main {
 }
 
 .section-background {
-    background: linear-gradient(to top, rgb(238, 208, 72), 20%, rgb(240, 241, 127));
+    background: linear-gradient(to top, rgb(238, 208, 72), 10%, rgb(240, 241, 127));
 }
 
 h1 {
@@ -226,7 +229,8 @@ h1 {
     padding: 16px;
 }
 
-.quwestion {
+.quwestion-list,
+.quwestion-radio {
     display: block;
     width: 88%;
     border: solid 2px black;
@@ -235,49 +239,97 @@ h1 {
     margin-left: auto;
     margin-right: auto;
 }
+/* .answers-radio {
+    display: block;
+} */
 @media screen and (min-width: 480px) {
-    .quwestion {
+    .quwestion-list,
+    .quwestion-radio {
         width: 380px;
     }
 }
 @media screen and (min-width: 768px) {
-    .quwestion {
+    .quwestion-list,
+    .quwestion-radio {
         width: 600px;
     }
 }
 @media screen and (min-width: 1200px) {
-    .quwestion {
+    .quwestion-list,
+    .quwestion-radio {
         width: 800px;
     }
 }
-.quwestion:hover {
+.quwestion-list:hover,
+.quwestion-radio:hover {
     box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9)
 }
 
+/* .quwestion-radio:hover {
+    border: solid 2px var(--color-dark);
+} */
+
 .paragraph,
 .right-answer,
-.wrong-answer {
+.wrong-answer,
+.paragraph-main-list {
     font-size: 24px;
     font-weight: 700;
     margin: 8px;
 }
 
 .paragraph {
+    padding: 8px 16px;
+    color: var(--color-dark);
+}
+
+.paragraph-main {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 8px;
+    text-align: center;
+    color: var(--color-title);
+}
+
+.paragraph-main-list {
     padding: 8px;
-    color: var(--color_dark);
+}
+.paragraph-main-link {
+    color: var(--color-dark);
+}
+.paragraph-main-list:hover {
+    background-color: var(--color-light);
+    border-radius: 16px;
+    color: var(--color-title);
+}
+.paragraph-main-link:hover {
+    color: var(--color-title);
 }
 
 .answers {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     padding-bottom: 24px;
+}
+.answers-list {
+    display: block;
+}
+.answers-radio {
+    display: flex;
+    flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+    .answers-list,
+    .answers-radio {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 .material-bottom {
-    background: var(--color_dark);
+    background: var(--color-dark);
     border-radius: 10px;
-    box-shadow: 0 15px 0 0 darken(var(--color_dark), 5%), 0 0 20px 0 #555;
+    box-shadow: 0 15px 0 0 darken(var(--color-dark), 5%), 0 0 20px 0 #555;
     transition: all .2s;
     position: relative;
     top: 0;
@@ -286,11 +338,30 @@ h1 {
 
 .material-bottom:active {
     top: 8px;
-    box-shadow: 0 8px 0 0 darken(var(--color_dark), 5%);
+    box-shadow: 0 8px 0 0 darken(var(--color-dark), 5%);
 }
 
 .material-bottom:hover {
     box-shadow: 0px 4px 8px rgba(0,0,0,0.9)
+}
+
+.material-radio {
+    background: var(--color-dark);
+    border-radius: 10px;
+    box-shadow: 0 15px 0 0 darken(var(--color-dark), 5%), 0 0 20px 0 #555;
+    transition: all .2s;
+    position: relative;
+    top: 0;
+    color: var(--color-white);
+}
+.material-radio:hover {
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.9)
+}
+
+legend {
+    border: solid 2px var(--color-title);
+    border-radius: 24px;
+    background-color: var(--color-light);
 }
 /* ============ End of СТИЛИ в MAIN =============== */
 /* ================================================ */
@@ -310,7 +381,7 @@ footer {
     font-size: 18px;
     margin: 8px;
     padding: 24px;
-    color: var(--color_dark);
+    color: var(--color-dark);
 }
 
 /* ============ End of СТИЛИ в MAIN =============== */
