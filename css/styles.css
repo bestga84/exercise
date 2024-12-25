@@ -378,6 +378,14 @@ legend {
     border-radius: 24px;
     background-color: var(--color-light);
 }
+
+.kind-answer {
+    padding-bottom: 4px;
+    margin-left: auto;
+    color: var(--color-title);
+    font-size: 24px;
+}
+
 /* ============ End of СТИЛИ в MAIN =============== */
 /* ================================================ */
 

@@ -21,6 +21,7 @@ testsContainer.addEventListener('click', (event) => {
       button.style.backgroundColor = 'var(--color-dark)'; 
       button.style.color = 'white';
     });
+    target.innerHTML = "&#10060;";
   }
 });
 //==============================================================
