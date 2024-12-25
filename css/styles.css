@@ -282,26 +282,35 @@ h1 {
 .right-answer,
 .wrong-answer,
 .paragraph-main-list {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     margin: 8px;
 }
 
 .paragraph {
-    padding: 8px 16px;
+    padding: 8px 0;
     color: var(--color-dark);
 }
 
 .paragraph-main {
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 700;
-    margin: 8px;
+    /* margin: 8px; */
     text-align: center;
     color: var(--color-title);
 }
+@media screen and (min-width: 480px) {
+    .paragraph-main {
+        font-size: 32px;
+    }
+    .paragraph-main-list {
+        font-size: 24px;
+    }
+}
+
 
 .paragraph-main-list {
-    padding: 8px;
+    padding: 8px 0;
 }
 .paragraph-main-link {
     color: var(--color-dark);
