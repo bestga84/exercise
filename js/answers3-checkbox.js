@@ -46,6 +46,11 @@
 // Хороший и нужный код
 const testsContainer = document.querySelector('.tests');
 
+const itemTextRight = document.createElement("p");
+itemTextRight.style.width = "auto";
+const itemTextWrong = document.createElement("p");
+itemTextWrong.style.width = "auto";
+
 testsContainer.addEventListener('click', (event) => {
     const target = event.target;
     const checkbox = target.closest('label'); 
@@ -72,6 +77,12 @@ testsContainer.addEventListener('click', (event) => {
           target.style.backgroundColor = 'var(--color-dark)';
           target.style.color = 'white';
         }
+
+        itemTextWrong.remove();
+        itemTextRight.innerHTML = "&#9989;";
+        target.closest('.paragraph')
+        target.append(itemTextRight);
+        
     } else if (target.classList.contains('wrong-answer')) {
         if (checkbox.querySelector('input').checked == false) {
             target.closest('.quwestion').style.backgroundColor = 'lightcoral';
@@ -86,7 +97,11 @@ testsContainer.addEventListener('click', (event) => {
           target.style.backgroundColor = 'var(--color-dark)';
           target.style.color = 'white';
         }
-        target.innerHTML = "&#10060;";
+
+        itemTextRight.remove();
+        itemTextWrong.innerHTML = "&#10060;";
+        target.closest('.paragraph')
+        target.append(itemTextWrong);
     }
 
 

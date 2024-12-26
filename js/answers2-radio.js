@@ -1,5 +1,10 @@
 const testsContainer = document.querySelector('.tests');
 
+const itemTextRight = document.createElement("p");
+itemTextRight.style.width = "auto";
+const itemTextWrong = document.createElement("p");
+itemTextWrong.style.width = "auto";
+
 testsContainer.addEventListener('click', (event) => {
   const target = event.target;
 
@@ -12,6 +17,12 @@ testsContainer.addEventListener('click', (event) => {
       button.style.backgroundColor = 'var(--color-dark)';
       button.style.color = 'white';
     });
+
+    itemTextWrong.remove();
+    itemTextRight.innerHTML = "&#9989;";
+    target.closest('.paragraph')
+    target.append(itemTextRight);
+
   } else if (target.classList.contains('wrong-answer')) {
     target.querySelector('input').checked = true;
     target.closest('.quwestion').style.backgroundColor = 'lightcoral';
@@ -21,7 +32,11 @@ testsContainer.addEventListener('click', (event) => {
       button.style.backgroundColor = 'var(--color-dark)'; 
       button.style.color = 'white';
     });
-    target.innerHTML = "&#10060;";
+
+    itemTextRight.remove();
+    itemTextWrong.innerHTML = "&#10060;";
+    target.closest('.paragraph')
+    target.append(itemTextWrong);
   }
 });
 //==============================================================
