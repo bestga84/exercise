@@ -114,11 +114,11 @@ const steps = [
 
     if (isCorrect) {
       // Красим в зелёный и показываем сообщение
-      blocks.forEach((block) => block.classList.add("correct"));
+      blocks.forEach((block) => block.classList.add("correct-order"));
       message.style.display = "block";
     } else {
       // Убираем зелёный цвет и скрываем сообщение
-      blocks.forEach((block) => block.classList.remove("correct"));
+      blocks.forEach((block) => block.classList.remove("correct-order"));
       message.style.display = "none";
     }
   }
