@@ -6,6 +6,10 @@
     --color-white: #fff;
     --color-title: #442200;
     --color-background: #ccc;
+    --color-lightblue: lightblue;
+    --color-green: #0f0;
+    --color-yellow: yellow;
+
 }
 
 /* ================================================ */
@@ -203,6 +207,11 @@ header {
 }
 .main-menu a {
     color: var(--color-title);
+}
+
+.main-image {
+    width: 60px;
+    margin: 0 16px;
 }
 /* ============ End of СТИЛИ в HEADER =============== */
 /* ================================================== */
@@ -474,6 +483,12 @@ footer {
 /* ============ End of СТИЛИ в MAIN =============== */
 /* ================================================ */
 
+
+
+
+/* ================================================ */
+/* ================= СТИЛИ в MAIN ================= */
+/* ================= Установить порядок ================= */
 .message-order {
     display:none; 
     color: green; 
@@ -481,13 +496,60 @@ footer {
     font-weight: bold;
     margin: 0 16px;
 }
+/*============= Установить порядок ================= */
+/* ============ End of СТИЛИ в MAIN =============== */
+/* ================================================ */
+
+
+
+
 
 
 /* ================================================ */
 /* ================= СТИЛИ в MAIN ================= */
-/* ================= Установить порядок ================= */
+/* ================= Найди пару ================= */
+.block2 {
+    display: inline-block;
+    margin: 10px;
+    padding: 20px;
+    background-color: var(--color-lightblue);
+    border: 2px solid var(--color-dark);
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 120px;
+    text-align: center;
+}
+@media screen and (min-width: 480px) {
+    .block2 {
+        font-size: 24px;
+    }
+}
+.block2:hover {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, .3);
+}
+.selected {
+    background-color: var(--color-yellow);
+}
+.matched {
+    background-color: var(--color-green);
+}
 
+.blocks-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 16px 0 32px;
+}
 
-/*============= Установить порядок ================= */
+.message-para {
+    display:none; 
+    color: green; 
+    font-size: 20px; 
+    font-weight: bold;
+    margin: 0 16px;
+    padding: 0 16px 32px;
+}
+/*============= Найди пару ================= */
 /* ============ End of СТИЛИ в MAIN =============== */
 /* ================================================ */
