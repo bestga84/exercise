@@ -172,7 +172,7 @@ header {
 
 .main-menu-title {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 .title-img {
     width: 50px;
@@ -558,7 +558,8 @@ button {
     margin: 5px;
     padding: 5px 10px;
     cursor: move;
-    width: fit-content;
+    max-width: 240px;
+    /* width: fit-content; */
 
     font-family: "Balsamiq Sans", serif;
     font-weight: 400;
@@ -604,6 +605,20 @@ button {
     font-size: 18px;
     padding-bottom: 8px;
 }
+
+.category-image-title-container {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.category-image-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+.category-image-title img {
+    margin-right: 16px;
+}
+
 @media screen and (min-width: 480px) {
     .draggable-item,
     .title-classification {

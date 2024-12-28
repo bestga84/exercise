@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag and drop demo</title>
+  <style>
+    /* Стили для наглядности */
+    .draggable-item {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid gray;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      cursor: grab; /* курсор при наведении */
+    }
+
+    /* Правильно/неправильно */
+    .correct {
+      border-color: green;
+    }
+
+    .incorrect {
+      border-color: red;
+    }
+
+    /* Зоны для сброса */
+    .drop-zone {
+      width: 150px;
+      height: 150px;
+      border: 2px dashed #ccc;
+      margin: 10px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    /* Изначально прячем сообщение */
+    #message-classification {
+      display: none;
+      color: green;
+      font-weight: bold;
+    }
+
+    /* Ограничим размеры картинки внутри draggable-блока, если нужно */
+    img {
+      max-width: 80px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Контейнер, куда мы складываем все draggable-блоки в разбросе -->
+<div id="divContainer"></div>
+
+<!-- Контейнеры-категории -->
+<div id="zone-rgb"  class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+  RGB
+</div>
+
+<div id="zone-cmyk" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+  CMYK
+</div>
+
+<div id="zone-lab"  class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+  LAB
+</div>
+
+<div id="zone-hsv"  class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+  HSV
+</div>
+
+<!-- Сообщение, которое покажем, когда все блоки окажутся на местах -->
+<p id="message-classification">Все элементы на своих местах!</p>
+
+<script>
+  // Массив всех элементов с их "правильной" категорией
+  // (category указывает на ID контейнера, куда надо поместить)
+  const itemsData = [
+    {
+      id: "rgb_item",
+      // Вместо текста — картинка (innerHTML)
+      label: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Venn_diagram_rgb.svg/220px-Venn_diagram_rgb.svg.png" 
+                   alt="RGB diagram">`,
+      category: "zone-rgb"
+    },
+    {
+      id: "cmyk_item",
+      label: "C1",
+      category: "zone-cmyk"
+    },
+    {
+      id: "lab_item",
+      label: "$A$1",
+      category: "zone-lab"
+    },
+    {
+      id: "hsv_item",
+      label: "$C$1",
+      category: "zone-hsv"
+    }
+  ];
+
+  // Общее количество элементов
+  const totalItems = itemsData.length;
+
+  // Текущее количество элементов, стоящих в правильной категории
+  let correctCount = 0;
+
+  // Функция для перемешивания массива (Fisher–Yates shuffle)
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  // Перемешиваем элементы
+  shuffle(itemsData);
+
+  // Создаем блоки в случайном порядке внутри divContainer
+  const divContainer = document.getElementById("divContainer");
+  itemsData.forEach(item => {
+    const div = document.createElement("div");
+    // ID будет вроде "rgb_item", "cmyk_item" и т.д.
+    div.id = item.id;
+    // Ставим внутрь либо текст, либо <img> — через innerHTML
+    div.innerHTML = item.label;
+
+    // Делаем блок перетаскиваемым
+    div.className = "draggable-item";
+    div.draggable = true;
+    div.ondragstart = drag;
+
+    // Добавляем в общий контейнер
+    divContainer.appendChild(div);
+  });
+
+  // Разрешаем сброс элементов (drop) в зоны
+  function allowDrop(event) {
+    event.preventDefault();
+  }
+
+  // Запоминаем, какой элемент начали перетаскивать
+  function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+  }
+
+  // При отпускании элемента в зону
+  function drop(event) {
+    event.preventDefault();
+    const itemId = event.dataTransfer.getData("text");
+    const draggedItem = document.getElementById(itemId);
+    const dropZoneId = event.currentTarget.id; // ID контейнера, куда бросили
+
+    // Добавляем элемент в целевую категорию
+    event.currentTarget.appendChild(draggedItem);
+
+    // Найдём объект с данными по этому элементу
+    const itemData = itemsData.find(item => item.id === itemId);
+
+    // Проверим, верно ли элемент помещён
+    if (itemData.category === dropZoneId) {
+      // Если до этого блок не был "correct" — увеличим счётчик
+      if (!draggedItem.classList.contains("correct")) {
+        correctCount++;
+      }
+      draggedItem.classList.remove("incorrect");
+      draggedItem.classList.add("correct");
+    } else {
+      // Если раньше блок стоял верно, а теперь нет, уменьшим счётчик
+      if (draggedItem.classList.contains("correct")) {
+        correctCount--;
+      }
+      draggedItem.classList.remove("correct");
+      draggedItem.classList.add("incorrect");
+    }
+
+    // Если все элементы на своих местах — показываем сообщение
+    if (correctCount === totalItems) {
+      const messageElem = document.getElementById("message-classification");
+      messageElem.style.display = "block"; // Делаем <p> видимым
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+
+<!-- 
+1. Дать разные ID контейнерам и элементам
+Сделаем так:
+
+Контейнеры-категории будут иметь ID вида:
+zone-rgb,
+zone-cmyk,
+zone-lab,
+zone-hsv.
+Элементы для перетаскивания будут иметь ID вида:
+rgb_item,
+cmyk_item,
+lab_item,
+hsv_item.
+При этом в объекте itemsData в поле category мы будем указывать ID контейнера, а не старое "rgb".
+В HTML-коде проверять будем, совпадает ли itemData.category с dropZoneId.
+
+================================================================================
+
+Когда у контейнера и у перетаскиваемого элемента один и тот же id, браузер может некорректно понимать, что именно мы «тащим»: родителя или ребёнка.
+Теперь мы чётко разделили:
+«зона-категория» имеет id="zone-rgb",
+«перетаскиваемый элемент» имеет id="rgb_item".
+В itemsData сказано, что rgb_item должен попадать в зону с id="zone-rgb".
+Проверка идёт по совпадению itemData.category === dropZoneId, то есть "zone-rgb" === "zone-rgb".
+С таким подходом картинка будет перетаскиваться и логика «правильно/неправильно» будет работать корректно.
+
+-->

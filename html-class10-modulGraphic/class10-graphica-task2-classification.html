@@ -14,7 +14,7 @@
         <div class="container-header">
             <div class="main-menu">
                 <a href="../index.html" class="link menu-item balsamiq-sans-bold">Головна сторінка</a>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_Excel_%282019%E2%80%93present%29.svg.png" alt="MS Excel" class="header-img">
+                <img src="https://www.unitopledstrip.com/wp-content/uploads/2023/09/what-is-RGB-Lighting.webp" alt="Модель кольору RGB" class="header-img">
             </div>
             <!-- <ul class="main-menu">
                 <li class="list balsamiq-sans-bold"><a href="../index.html" class="link menu-item">Головна сторінка</a></li>
@@ -24,13 +24,9 @@
 
     <main class="body-main-color">
         <section class="container section-background">
-            <h1 class="main-title pacifico-regular">№ 1. "Типи посилань на комірки в Excel"</h1>
+            <h1 class="main-title pacifico-regular">№ 2. "Моделі відображення кольору"</h1>
             <p class="paragraph balsamiq-sans-bold">Завдання: Класифікація.<br>Перетягніть в правильну категорію.</p>
             
-            <!-- <p id="message-classification" class="message-classification balsamiq-sans-bold">Правильно! &#9989;</p> -->
-
-                        <!-- <h1>Игра "Классификация"</h1> -->
-
             <!-- Блок, где изначально размещены все элементы -->
             <div class="items-container" id="itemsContainer">
               <h2 class="title-classification balsamiq-sans-bold">Перетягніть в правильну категорію:</h2>
@@ -38,37 +34,47 @@
               <div class="div-container" id="divContainer"></div>
             </div>
           
-            <div>
-            <!-- Категория "Відносні посилання" -->
-            <div class="category-container"
-                 id="relative-links"
+            <div class="category-image-title-container">
+            <!-- Категория "Адитивна модель кольору" -->
+            <div class="category-container category-image-title"
+                 id="rgb"
                  ondrop="drop(event)"
                  ondragover="allowDrop(event)">
-              <h2 class="balsamiq-sans-bold">Відносні посилання</h2>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Venn_diagram_rgb.svg/220px-Venn_diagram_rgb.svg.png" alt="RGB diagram" width="100px" height="100px">
+                <h2 class="balsamiq-sans-bold">RGB</h2>
             </div>
           
-            <!-- Категория "Абсолютні посилання" -->
-            <div class="category-container"
-                 id="absolute-links"
+            <!-- Категория "Субтрактивна модель кольору" -->
+            <div class="category-container category-image-title"
+                 id="cmyk"
                  ondrop="drop(event)"
                  ondragover="allowDrop(event)">
-              <h2 class="balsamiq-sans-bold">Абсолютні посилання</h2>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Polygraphic_Substractive_CMY.png/220px-Polygraphic_Substractive_CMY.png" alt="CMYK diagram" width="100px" height="100px">
+                <h2 class="balsamiq-sans-bold">CMYK</h2>
             </div>
           
-            <!-- Категория "Мішані посилання" -->
-            <div class="category-container"
-                 id="mixed-links"
+            <!-- Категория "Модель кольору, яка заснована на сприйнятті кольору людиною" -->
+            <div class="category-container category-image-title"
+                 id="lab"
                  ondrop="drop(event)"
                  ondragover="allowDrop(event)">
-              <h2 class="balsamiq-sans-bold">Мішані посилання</h2>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Color_space_CIE_1976_%28LUV%29%2B%28Lab%29%2BcolorTemp.png" alt="LAB diagram" width="100px" height="100px">
+                <h2 class="balsamiq-sans-bold">LAB</h2>
+            </div>
+
+            <!-- Категория "Модель кольору, яка заснована на сприйнятті кольору людиною" -->
+            <div class="category-container category-image-title"
+                 id="hsv"
+                 ondrop="drop(event)"
+                 ondragover="allowDrop(event)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/HSV_color_solid_cylinder.png/1200px-HSV_color_solid_cylinder.png" alt="HSV diagram" width="100px" height="100px">
+                <h2 class="balsamiq-sans-bold">HSV</h2>
             </div>
             </div>
 
             <p id="message-classification" class="message-classification balsamiq-sans-bold">Правильно! &#9989;</p>
 
         </section>
-
-
     </main>
 
     <footer>
@@ -77,6 +83,6 @@
         </section>
     </footer>
 
-    <script src="../js/class9-tema3-task1-classification.js" defer></script>
+    <script src="../js/class10-graphica-task2-classification.js" defer></script>
 </body>
 </html>
