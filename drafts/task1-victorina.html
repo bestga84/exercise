@@ -1,0 +1,184 @@
+<!-- 
+Ниже приведён пример полной HTML-страницы с комментариями, а также код JavaScript (внутри тега <script>), который покажет/скроет нужные параграфы и окрасит правильные/неправильные ответы.
+Обратите внимание на основные моменты:
+
+Стили:
+
+Можно добавить классы .hidden, .right-highlight и .wrong-highlight для управления видимостью и цветом.
+Или напрямую добавлять стили через style.backgroundColor, как удобнее.
+Структура:
+
+У каждой «карточки» вопроса есть свой параграф «Правильно!» и параграф «Не правильно...».
+При клике на кнопку с классом "right-answer", показываем (display: block) параграф «Правильно!» и скрываем «Не правильно...», окрашиваем и кнопку, и ul.
+При клике на кнопку с классом "wrong-answer", наоборот — показываем «Не правильно...», скрываем «Правильно!» и окрашиваем и кнопку, и ul. 
+-->
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Пример с вопросами</title>
+  <style>
+    /* Стили для скрытия и подсветки */
+    .hidden {
+      display: none;
+    }
+    
+    .right-highlight {
+      background-color: #ccffcc; /* Светло-зелёный */
+    }
+    
+    .wrong-highlight {
+      background-color: #ffcccc; /* Светло-розовый */
+    }
+    
+    /* Чтобы было красивее:
+       - Сделаем отступы для <p> "Правильно!" и "Не правильно...".
+       - Небольшие стили для кнопок (необязательно).
+    */
+    .tests {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    .quwestion {
+      margin-bottom: 30px;
+    }
+    
+    .paragraph {
+      font-weight: bold;
+    }
+    
+    p {
+      margin: 8px 0;
+    }
+
+    button {
+      cursor: pointer;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tests">
+    <!-- Вопрос 1 -->
+    <div class="quwestion balsamiq-sans-bold quwestion-list">
+      <p class="paragraph">Який тег задає заголовок?</p>
+      <ul class="answers answers-list">
+        <li class="list"><button type="button" class="right-answer material-bottom">&lt;h1&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;ul&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;li&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;img&gt;</button></li>
+      </ul>
+      <!-- Изначально скрываем оба параграфа -->
+      <p class="correct hidden">Правильно!</p>
+      <p class="incorrect hidden">Не правильно...</p>
+    </div>
+
+    <!-- Вопрос 2 -->
+    <div class="quwestion balsamiq-sans-bold quwestion-list">
+      <p class="paragraph">Який тег задає список?</p>
+      <ul class="answers answers-list">
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;h1&gt;</button></li>
+        <li class="list"><button type="button" class="right-answer material-bottom">&lt;ul&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;li&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;img&gt;</button></li>
+      </ul>
+      <p class="correct hidden">Правильно!</p>
+      <p class="incorrect hidden">Не правильно...</p>
+    </div>
+
+    <!-- Вопрос 3 -->
+    <div class="quwestion balsamiq-sans-bold quwestion-list">
+      <p class="paragraph">Який тег задає елемент списку?</p>
+      <ul class="answers answers-list">
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;h1&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;ul&gt;</button></li>
+        <li class="list"><button type="button" class="right-answer material-bottom">&lt;li&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;img&gt;</button></li>
+      </ul>
+      <p class="correct hidden">Правильно!</p>
+      <p class="incorrect hidden">Не правильно...</p>
+    </div>
+
+    <!-- Вопрос 4 -->
+    <div class="quwestion balsamiq-sans-bold quwestion-list">
+      <p class="paragraph">Який тег задає зображення?</p>
+      <ul class="answers answers-list">
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;h1&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;ul&gt;</button></li>
+        <li class="list"><button type="button" class="wrong-answer material-bottom">&lt;li&gt;</button></li>
+        <li class="list"><button type="button" class="right-answer material-bottom">&lt;img&gt;</button></li>
+      </ul>
+      <p class="correct hidden">Правильно!</p>
+      <p class="incorrect hidden">Не правильно...</p>
+    </div>
+  </div>
+
+  <script>
+    // Дождёмся полной загрузки DOM
+    document.addEventListener('DOMContentLoaded', function() {
+      // Найдём все блоки с вопросами
+      const questions = document.querySelectorAll('.quwestion');
+
+      questions.forEach(question => {
+        // Внутри каждого вопроса найдём параграфы "Правильно!" и "Не правильно..."
+        const correctParagraph = question.querySelector('.correct');
+        const incorrectParagraph = question.querySelector('.incorrect');
+        
+        // Найдём список ответов (ul) и кнопки внутри него
+        const answersList = question.querySelector('.answers');
+        const buttons = answersList.querySelectorAll('button');
+        
+        // Перебираем все кнопки
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Сбрасываем подсветку у всех кнопок вопроса и самого списка
+            buttons.forEach(b => {
+              b.classList.remove('right-highlight', 'wrong-highlight');
+            });
+            answersList.classList.remove('right-highlight', 'wrong-highlight');
+
+            // Если клик по кнопке с классом 'right-answer'
+            if (button.classList.contains('right-answer')) {
+              // Показываем "Правильно!", скрываем "Не правильно..."
+              correctParagraph.classList.remove('hidden');
+              incorrectParagraph.classList.add('hidden');
+
+              // Подсвечиваем кнопку и список зелёным
+              button.classList.add('right-highlight');
+              answersList.classList.add('right-highlight');
+            } 
+            // Если клик по кнопке с классом 'wrong-answer'
+            else if (button.classList.contains('wrong-answer')) {
+              // Показываем "Не правильно...", скрываем "Правильно!"
+              correctParagraph.classList.add('hidden');
+              incorrectParagraph.classList.remove('hidden');
+
+              // Подсвечиваем кнопку и список розовым
+              button.classList.add('wrong-highlight');
+              answersList.classList.add('wrong-highlight');
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
+<!-- 
+Как это работает:
+
+При загрузке страницы (DOMContentLoaded) скрипт ищет все блоки с классом .quwestion.
+Для каждого такого блока:
+Находит параграфы c классом .correct (для «Правильно!») и .incorrect (для «Не правильно...»).
+Находит список ul.answers и все кнопки внутри него.
+Вешает обработчик события click на каждую кнопку.
+При клике:
+Сначала убираем предыдущие подсветки (.right-highlight, .wrong-highlight).
+Если кнопка — «правильный ответ» (.right-answer), то показываем «Правильно!» (убираем hidden) и прячем «Не правильно...» (добавляем hidden), плюс подсвечиваем зелёным.
+Если кнопка — «неправильный ответ» (.wrong-answer), наоборот — показываем «Не правильно...», прячем «Правильно!» и подсвечиваем розовым.
+Таким образом, можно легко управлять отображением параграфов и цветовой индикацией.
+-->

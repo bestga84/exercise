@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Игра "Классификация"</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    
+    /* Контейнеры для категорий */
+    .category-container {
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      width: 250px;
+      min-height: 150px;
+      margin: 10px;
+      padding: 10px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .category-container h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    /* Стиль для перетаскиваемых элементов */
+    .draggable-item {
+      border: 1px solid #666;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      margin: 5px;
+      padding: 5px 10px;
+      cursor: move;
+      width: fit-content;
+    }
+
+    /* Верная и неверная категория */
+    .draggable-item.correct {
+      background-color: #c3ffc3; /* Зеленый, если верно */
+    }
+
+    .draggable-item.incorrect {
+      background-color: #ffc3c3; /* Красный, если неверно */
+    }
+
+    /* Контейнер для всех элементов */
+    .items-container {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      min-width: 220px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Игра "Классификация"</h1>
+
+  <!-- Блок, где изначально размещены все элементы -->
+  <div class="items-container" id="itemsContainer">
+    <h2>Перетащи в правильную категорию:</h2>
+    <!-- Элементы добавятся через JavaScript в случайном порядке -->
+  </div>
+
+  <!-- Категория "Животные" -->
+  <div class="category-container"
+       id="animals"
+       ondrop="drop(event)"
+       ondragover="allowDrop(event)">
+    <h2>Животные</h2>
+  </div>
+
+  <!-- Категория "Растения" -->
+  <div class="category-container"
+       id="plants"
+       ondrop="drop(event)"
+       ondragover="allowDrop(event)">
+    <h2>Растения</h2>
+  </div>
+
+  <!-- Категория "Предметы" -->
+  <div class="category-container"
+       id="objects"
+       ondrop="drop(event)"
+       ondragover="allowDrop(event)">
+    <h2>Предметы</h2>
+  </div>
+
+  <script>
+    // Массив всех элементов с их "правильной" категорией
+    const itemsData = [
+      { id: "dog",    label: "Собака", category: "animals" },
+      { id: "cat",    label: "Кот",    category: "animals" },
+      { id: "mouse",  label: "Мышь",   category: "animals" },
+      { id: "flower", label: "Цветок", category: "plants"  },
+      { id: "tree",   label: "Дерево", category: "plants"  },
+      { id: "grass",  label: "Трава",  category: "plants"  },
+      { id: "table",  label: "Стол",   category: "objects" },
+      { id: "book",   label: "Книга",  category: "objects" },
+      { id: "lamp",   label: "Лампа",  category: "objects" },
+    ];
+
+    // Общее количество элементов
+    const totalItems = itemsData.length;
+
+    // Текущая количество элементов, стоящих в правильной категории
+    let correctCount = 0;
+
+    // Функция для перемешивания массива (Fisher–Yates shuffle)
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    // Перемешиваем элементы
+    shuffle(itemsData);
+
+    // Создаем блоки в случайном порядке в itemsContainer
+    const itemsContainer = document.getElementById("itemsContainer");
+    itemsData.forEach(item => {
+      const div = document.createElement("div");
+      div.id = item.id;
+      div.textContent = item.label;
+      div.className = "draggable-item";
+      div.draggable = true;
+      div.ondragstart = drag;
+      itemsContainer.appendChild(div);
+    });
+
+    // Функция, разрешающая сброс элементов
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    // Запоминаем, какой элемент начал перетаскиваться
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    // При отпускании элемента в зону
+    function drop(event) {
+      event.preventDefault();
+      const itemId = event.dataTransfer.getData("text");
+      const draggedItem = document.getElementById(itemId);
+      const dropZoneId = event.currentTarget.id; // ID контейнера, куда бросили
+
+      // Добавляем элемент в целевую категорию
+      event.currentTarget.appendChild(draggedItem);
+
+      // Найдем объект с данными по itemId
+      const itemData = itemsData.find(item => item.id === itemId);
+
+      // Проверим, правильно ли элемент помещён
+      if (itemData.category === dropZoneId) {
+        // Если до этого блок не был "correct" — увеличим счётчик
+        if (!draggedItem.classList.contains("correct")) {
+          correctCount++;
+        }
+        draggedItem.classList.remove("incorrect");
+        draggedItem.classList.add("correct");
+      } else {
+        // Если раньше блок стоял верно, а теперь нет, уменьшим счётчик
+        if (draggedItem.classList.contains("correct")) {
+          correctCount--;
+        }
+        draggedItem.classList.remove("correct");
+        draggedItem.classList.add("incorrect");
+      }
+
+      // Если все элементы на своих местах — выводим сообщение
+      if (correctCount === totalItems) {
+        alert("Правильно!");
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+<!-- 
+==================================================================================
+Ниже приведён пример кода на HTML и JavaScript, который:
+
+В случайном порядке размещает блоки «Собака», «Кот», «Мышь», «Цветок», «Дерево», «Трава», «Стол», «Книга», «Лампа» в начальном блоке.
+Проверяет каждый раз, когда пользователь перетаскивает блок в категорию, был ли он помещён правильно.
+Когда все блоки окажутся правильно распределены по категориям, выводит сообщение «Правильно!».
+
+==================================================================================
+
+Массив itemsData содержит 9 элементов: каждому присвоены уникальный id, отображаемый текст (label) и правильная категория (category).
+Функция shuffle(array) перемешивает массив по алгоритму Фишера–Йетса, тем самым каждый раз выводя элементы в случайном порядке.
+Создание элементов в HTML:
+В цикле itemsData.forEach(...) для каждого объекта создаётся <div> с классом draggable-item, в который записывается текст.
+Каждый такой элемент добавляется в itemsContainer.
+Drag & Drop:
+При начале перетаскивания (ondragstart) сохраняется id элемента (event.dataTransfer.setData("text", ...)).
+В контейнерах категорий включена поддержка сброса (ondrop="drop(event)" и ondragover="allowDrop(event)").
+В drop(event) мы получаем id перетаскиваемого элемента, перемещаем его и проверяем правильность категории.
+Подсчёт правильных ответов:
+Переменная correctCount увеличивается или уменьшается при каждом движении, в зависимости от того, является ли новое положение элемента правильным или нет.
+Если correctCount равен общему количеству элементов (totalItems), значит все стоят правильно, и появляется сообщение «Правильно!».
+
+==================================================================================
+-->
