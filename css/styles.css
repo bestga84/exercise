@@ -133,10 +133,18 @@ header {
     margin: 0 16px;
 }
 .main-menu {
-    padding: 16px;    
+    display: flex;
+    flex-wrap: wrap;
+    /* padding: 16px;     */
 }
 .main-menu a {
     color: var(--color-title);
+}
+.title-list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 18px;
+    padding: 24px;
 }
 
 /* Стили книпки "Головна стрінка", начало */
@@ -148,6 +156,7 @@ header {
     text-align: center;
     background-color: orange;
     font-size: 18px;
+    margin-left: 16px;
 }
 .menu-item:hover {
     box-shadow: inset 0px 0px 8px rgba(0,0,0,0.9)
@@ -157,6 +166,9 @@ header {
     .container-header,
     .container-footer {
         width: 448px;
+    }
+    .title-list {
+        font-size: 24px;
     }
 }
 @media screen and (min-width: 768px) {
@@ -511,18 +523,20 @@ button {
     cursor: move;
     width: fit-content;
 
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 400;
+    font-style: normal;
     font-size: 18px;
+}
+.draggable-item:hover,
+.draggable-item:focus {
+    background-color: var(--color-lightblue);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, .3);
 }
 
 .div-container {
     display: flex;
     flex-wrap: wrap;
-}
-
-.draggable-item {
-    font-family: "Balsamiq Sans", serif;
-    font-weight: 400;
-    font-style: normal;
 }
 
   /* Верная и неверная категория */
@@ -543,6 +557,9 @@ button {
     vertical-align: top;
 
     margin: 16px;
+}
+.items-container:hover {
+    box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9)
 }
 
 .title-classification {
