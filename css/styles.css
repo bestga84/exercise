@@ -303,13 +303,13 @@ header {
 .wrong-highlight {
     background-color: var(--color-lightpink); /* Светло-розовый */
 }
-.right-highlight-button {
+.right-highlight-buttom {
     background-color: var(--color-yellow);
     color: var(--color-dark);
 }
-.wrong-highlight-button {
+.wrong-highlight-buttom {
     background-color: var(--color-pink);
-    color: var(--color-dark);
+    /* color: var(--color-dark); */
 }
       
 /* Чтобы было красивее:
