@@ -558,8 +558,21 @@ button {
     margin: 5px;
     padding: 5px 10px;
     cursor: move;
+    width: fit-content;
+
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+}
+.draggable-item-img {
+    border: 1px solid #666;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin: 5px;
+    padding: 5px 10px;
+    cursor: move;
     max-width: 240px;
-    /* width: fit-content; */
 
     font-family: "Balsamiq Sans", serif;
     font-weight: 400;
@@ -567,7 +580,9 @@ button {
     font-size: 18px;
 }
 .draggable-item:hover,
-.draggable-item:focus {
+.draggable-item:focus,
+.draggable-item-img:hover,
+.draggable-item-img:focus {
     background-color: var(--color-lightblue);
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, .3);
 }
@@ -578,10 +593,12 @@ button {
 }
 
   /* Верная и неверная категория */
-.draggable-item.correct {
+.draggable-item.correct,
+.draggable-item-img.correct {
     background-color: var(--color-lightgreen); /* Зеленый, если верно */
 }
-.draggable-item.incorrect {
+.draggable-item.incorrect,
+.draggable-item-img.incorrect {
     background-color: var(--color-lightpink); /* Красный, если неверно */
 }
 
@@ -621,6 +638,7 @@ button {
 
 @media screen and (min-width: 480px) {
     .draggable-item,
+    .draggable-item-img
     .title-classification {
         font-size: 24px;
     }

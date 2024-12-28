@@ -45,7 +45,7 @@ itemsData.forEach(item => {
   const div = document.createElement("div");
   div.id = item.id;
   div.textContent = item.label;
-  div.className = "draggable-item";
+  div.className = "draggable-item-img";
   div.draggable = true;
   div.ondragstart = drag;
   itemsContainer.appendChild(div);
@@ -57,7 +57,7 @@ itemsData.forEach(item => {
     const div = document.createElement("div");
     div.id = item.id;
     div.textContent = item.label;
-    div.className = "draggable-item";
+    div.className = "draggable-item-img";
     div.draggable = true;
     div.ondragstart = drag;
     divContainer.appendChild(div);
@@ -118,7 +118,7 @@ function drop(event) {
 Массив itemsData содержит 9 элементов: каждому присвоены уникальный id, отображаемый текст (label) и правильная категория (category).
 Функция shuffle(array) перемешивает массив по алгоритму Фишера–Йетса, тем самым каждый раз выводя элементы в случайном порядке.
 Создание элементов в HTML:
-В цикле itemsData.forEach(...) для каждого объекта создаётся <div> с классом draggable-item, в который записывается текст.
+В цикле itemsData.forEach(...) для каждого объекта создаётся <div> с классом draggable-item-img, в который записывается текст.
 Каждый такой элемент добавляется в itemsContainer.
 Drag & Drop:
 При начале перетаскивания (ondragstart) сохраняется id элемента (event.dataTransfer.setData("text", ...)).
