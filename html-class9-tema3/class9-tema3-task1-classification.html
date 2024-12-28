@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вправи інтерактивні</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=Kablammo&family=Pacifico&family=Rubik+Beastly&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="./img/favicon_LGA84.ico">
+</head>
+<body>
+
+    <header>
+        <div class="container-header">
+            <ul class="main-menu">
+                <li class="list balsamiq-sans-bold"><a href="../index.html" class="link menu-item">Головна сторінка</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="container section-background move-4">
+            <h1 class="main-title pacifico-regular">№ 1. "Опрацювання табличних даних"</h1>
+            <p class="paragraph balsamiq-sans-bold">Завдання: Класифікація.<br>Перетягніть в правильну категорію.</p>
+            
+            <!-- <p id="message-classification" class="message-classification balsamiq-sans-bold">Правильно! &#9989;</p> -->
+
+                        <!-- <h1>Игра "Классификация"</h1> -->
+
+            <!-- Блок, где изначально размещены все элементы -->
+            <div class="items-container" id="itemsContainer">
+              <h2 class="title-classification balsamiq-sans-bold">Перетягніть в правильну категорію:</h2>
+              <!-- Элементы добавятся через JavaScript в случайном порядке -->
+              <div class="div-container" id="divContainer"></div>
+            </div>
+          
+            <div>
+            <!-- Категория "Відносні посилання" -->
+            <div class="category-container"
+                 id="relative-links"
+                 ondrop="drop(event)"
+                 ondragover="allowDrop(event)">
+              <h2 class="balsamiq-sans-bold">Відносні посилання</h2>
+            </div>
+          
+            <!-- Категория "Абсолютні посилання" -->
+            <div class="category-container"
+                 id="absolute-links"
+                 ondrop="drop(event)"
+                 ondragover="allowDrop(event)">
+              <h2 class="balsamiq-sans-bold">Абсолютні посилання</h2>
+            </div>
+          
+            <!-- Категория "Мішані посилання" -->
+            <div class="category-container"
+                 id="mixed-links"
+                 ondrop="drop(event)"
+                 ondragover="allowDrop(event)">
+              <h2 class="balsamiq-sans-bold">Мішані посилання</h2>
+            </div>
+            </div>
+
+            <p id="message-classification" class="message-classification balsamiq-sans-bold">Правильно! &#9989;</p>
+
+        </section>
+
+
+    </main>
+
+    <footer>
+        <section class="container-footer">
+            <p class="paragraph-footer balsamiq-sans-bold-italic">Інформатика</p>
+        </section>
+    </footer>
+
+    <script src="../js/class9-tema3-task1-classification.js" defer></script>
+</body>
+</html>

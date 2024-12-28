@@ -364,7 +364,8 @@ button {
 .block:hover {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, .3);
 }
-.message-para {
+.message-para,
+.message-classification {
     display:none; 
     color: green; 
     font-size: 20px; 
@@ -399,6 +400,8 @@ button {
     }
 }
 /* Уровень "Найти пару", конец */
+
+/* Уровень "Встановіть послідовність блоків", начало */
 /* body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -417,7 +420,7 @@ button {
     margin-bottom: 1rem;
   } */
   /* Сообщение "Правильно!" — по умолчанию скрыто */
-#message-order {
+  #message-order {
     display: none;
     color: green;
     font-weight: bold;
@@ -478,9 +481,82 @@ button {
 .draggable-block:active {
     cursor: grabbing;
 }
-/* Уровень "Встановіть послідовність блоків", начало */
-
 /* Уровень "Встановіть послідовність блоків", конец */
+
+/* Уровень "Класифікація", начало */
+/* Контейнеры для категорий */
+.category-container {
+    border: 2px dashed var(--color-grey);
+    border-radius: 8px;
+    width: 250px;
+    min-height: 150px;
+    margin: 16px;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.category-container h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+  /* Стиль для перетаскиваемых элементов */
+.draggable-item {
+    border: 1px solid #666;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin: 5px;
+    padding: 5px 10px;
+    cursor: move;
+    width: fit-content;
+
+    font-size: 18px;
+}
+
+.div-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.draggable-item {
+    font-family: "Balsamiq Sans", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+  /* Верная и неверная категория */
+.draggable-item.correct {
+    background-color: var(--color-lightgreen); /* Зеленый, если верно */
+}
+.draggable-item.incorrect {
+    background-color: var(--color-lightpink); /* Красный, если неверно */
+}
+
+  /* Контейнер для всех элементов */
+.items-container {
+    border: 2px solid var(--color-grey);
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 220px;
+    display: inline-block;
+    vertical-align: top;
+
+    margin: 16px;
+}
+
+.title-classification {
+    color: var(--color-title);
+    font-size: 18px;
+    padding-bottom: 8px;
+}
+@media screen and (min-width: 480px) {
+    .draggable-item,
+    .title-classification {
+        font-size: 24px;
+    }
+}
+/* Уровень "Класифікація", кінець */
 
 /* ============ End of СТИЛИ в MAIN =============== */
 /* ================================================ */
