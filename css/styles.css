@@ -241,6 +241,13 @@ header {
     color: var(--color-grey);
 }
 
+.main-title-clas {
+    text-align: center;
+    font-size: 32px;
+    padding: 16px;
+    color: var(--color-title);
+}
+
 .tests {
     padding: 16px;
 }
