@@ -140,6 +140,12 @@ header {
 .main-menu a {
     color: var(--color-title);
 }
+.header-img {
+    width: 50px;
+    height: 100%;
+    margin-left: 44px;
+    margin-right: 16px;
+}
 .title-list {
     display: flex;
     flex-wrap: wrap;
@@ -161,6 +167,18 @@ header {
 .menu-item:hover {
     box-shadow: inset 0px 0px 8px rgba(0,0,0,0.9)
 }
+
+.main-menu-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+.title-img {
+    width: 50px;
+    height: 100%;
+    padding: 8px;
+    margin: 8px 8px 8px auto;
+}
+
 /* Стили книпки "Головна стрінка", кінець */
 @media screen and (min-width: 480px) {
     .container-header,
@@ -170,17 +188,26 @@ header {
     .title-list {
         font-size: 24px;
     }
+    .header-img {
+        margin-left: 110px;
+    }
 }
 @media screen and (min-width: 768px) {
     .container-header,
     .container-footer {
         width: 752px;
     }
+    .header-img {
+        margin-left: 412px;
+    }
 }
 @media screen and (min-width: 1200px) {
     .container-header,
     .container-footer {
         width: 1200px;
+    }
+    .header-img {
+        margin-left: 860px;
     }
 }
 /* ============ End of СТИЛИ в HEADER =============== */
@@ -195,6 +222,10 @@ header {
 /* ----------- ГЛАВНАЯ СТРАНИЦА, начало ------------ */
 .section-background {
     background: linear-gradient(to top, rgb(238, 208, 72), 10%, rgb(240, 241, 127));
+}
+
+.body-main-color {
+    background: linear-gradient(to top, rgb(79, 206, 199), 20%, rgb(127, 241, 207));
 }
 
 .main-title {
@@ -228,6 +259,7 @@ header {
     font-size: 20px;
     font-weight: 700;
     text-align: center;
+    width: 55%;
     margin: 8px;
     padding: 8px;  
     color: var(--color-title);
@@ -264,6 +296,9 @@ header {
 @media screen and (min-width: 768px) {
     .quwestion-list {
         width: 600px;
+    }
+    .paragraph-main {
+        width: 80%;
     }
 }
 @media screen and (min-width: 1200px) {
