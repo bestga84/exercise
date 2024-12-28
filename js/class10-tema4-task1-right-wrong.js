@@ -42,7 +42,7 @@
                 // 2.1) Снимаем подсветку только со всех "wrong-answer"
                 buttons.forEach(b => {
                   if (b.classList.contains('wrong-answer')) {
-                    b.classList.remove('wrong-highlight');
+                    b.classList.remove('wrong-highlight-buttom');
                   }
                 });
                 // Снимаем подсветку с ul, если она розовая
@@ -55,7 +55,7 @@
                 incorrectParagraph.classList.add('hidden');
   
                 // Подсвечиваем текущую кнопку и ul зелёным
-                button.classList.add('right-highlight-button');
+                button.classList.add('right-highlight-buttom');
                 answersList.classList.add('right-highlight');
               } 
               // ---- Если нажали на неправильный ответ
@@ -63,7 +63,7 @@
                 // 2.3) Снимаем подсветку только со всех "right-answer"
                 buttons.forEach(b => {
                   if (b.classList.contains('right-answer')) {
-                    b.classList.remove('right-highlight-button');
+                    b.classList.remove('right-highlight-buttom');
                   }
                 });
                 // Снимаем подсветку с ul, если она зелёная
@@ -76,7 +76,7 @@
                 incorrectParagraph.classList.remove('hidden');
   
                 // Подсвечиваем текущую кнопку и ul розовым
-                button.classList.add('wrong-highlight');
+                button.classList.add('wrong-highlight-buttom');
                 answersList.classList.add('wrong-highlight');
               }
             });
