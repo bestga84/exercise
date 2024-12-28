@@ -134,7 +134,7 @@ header {
 }
 .main-menu {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     /* padding: 16px;     */
 }
 .main-menu a {
@@ -143,7 +143,9 @@ header {
 .header-img {
     width: 50px;
     height: 100%;
-    margin-left: 44px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 16px;
     margin-right: 16px;
 }
 .title-list {
@@ -153,9 +155,9 @@ header {
     padding: 24px;
 }
 
-/* Стили книпки "Головна стрінка", начало */
+/* Стили кнопки "Головна стрінка", начало */
 .menu-item {
-    width: 200px;
+    width: 150px;
     border: solid 2px black;
     border-radius: 8px;
     padding: 16px;
@@ -170,7 +172,7 @@ header {
 
 .main-menu-title {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 .title-img {
     width: 50px;
@@ -189,7 +191,7 @@ header {
         font-size: 24px;
     }
     .header-img {
-        margin-left: 110px;
+        margin-left: 160px;
     }
 }
 @media screen and (min-width: 768px) {
@@ -198,7 +200,7 @@ header {
         width: 752px;
     }
     .header-img {
-        margin-left: 412px;
+        margin-left: 460px;
     }
 }
 @media screen and (min-width: 1200px) {
@@ -207,7 +209,7 @@ header {
         width: 1200px;
     }
     .header-img {
-        margin-left: 860px;
+        margin-left: 900px;
     }
 }
 /* ============ End of СТИЛИ в HEADER =============== */
