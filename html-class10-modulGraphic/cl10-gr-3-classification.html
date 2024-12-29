@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вправи інтерактивні</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=Kablammo&family=Pacifico&family=Rubik+Beastly&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="./img/favicon_LGA84.ico">
+</head>
+<body>
+
+    <header>
+        <div class="container-header">
+            <div class="main-menu">
+                <a href="../index.html" class="link menu-item balsamiq-sans-bold">Головна сторінка</a>
+                <img src="https://www.unitopledstrip.com/wp-content/uploads/2023/09/what-is-RGB-Lighting.webp" alt="Модель кольору RGB" class="header-img">
+            </div>
+        </div>
+    </header>
+
+    <main class="body-main-color">
+        <section class="container section-background">
+            <h1 class="main-title pacifico-regular">№ 3. "Моделі відображення кольору"</h1>
+            <p class="paragraph balsamiq-sans-bold">Завдання: Класифікація.<br>Перетягніть в правильну категорію.</p>
+            
+
+
+            <!-- Блок, где изначально размещены все элементы -->
+            <div class="items-container" id="itemsContainer">
+                <h2 class="title-classification balsamiq-sans-bold">Перетягніть в правильну категорію:</h2>
+                <div class="div-container" id="divContainer"></div>
+            </div>
+
+            <div class="category-image-title-container">
+                <div id="zone-rgb" class="drop-zone category-container category-image-title" ondragover="allowDrop(event)" ondrop="drop(event)"><h2 class="balsamiq-sans-bold title-classification">Адитивна модель кольору, яка використовується для опису кольорів, які ми бачимо у випромінюваному світлi (використовується в моніторах)</h2></div>
+                <div id="zone-cmyk" class="drop-zone category-container category-image-title" ondragover="allowDrop(event)" ondrop="drop(event)"><h2 class="balsamiq-sans-bold title-classification">Субтрактивна модель кольору, яка використовується для опису кольорів, які ми бачимо у відбитому світлі (використовується в типографії, друк на принтері)</h2></div>
+                <div id="zone-lab" class="drop-zone category-container category-image-title" ondragover="allowDrop(event)" ondrop="drop(event)"><h2 class="balsamiq-sans-bold title-classification">Модель кольору, яка заснована на сприйнятті кольору людиною</h2></div>
+                <div id="zone-hsv" class="drop-zone category-container category-image-title" ondragover="allowDrop(event)" ondrop="drop(event)"><h2 class="balsamiq-sans-bold title-classification">Модель кольору, яка заснована на характеристиках кольору: колірному тоні, насиченості, яскравості</h2></div>
+            </div>
+
+            <p id="message-classification" class="message-classification balsamiq-sans-bold">Правильно! &#9989;</p>
+          
+        </section>
+    </main>
+
+    <footer>
+        <section class="container-footer">
+            <p class="paragraph-footer balsamiq-sans-bold-italic">Інформатика</p>
+        </section>
+    </footer>
+
+    <script src="../js/cl10-gr-3-classification.js" defer></script>
+</body>
+</html>

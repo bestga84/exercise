@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Drag and drop demo</title>
+  <meta charset="UTF-8" />
+  <title>Drag and Drop + Touch</title>
   <style>
-    /* Стили для наглядности */
     .draggable-item {
-      width: 100px;
-      height: 100px;
-      margin: 10px;
-      padding: 10px;
-      border: 1px solid gray;
       display: inline-block;
+      margin: 10px;
+      border: 2px dashed #ccc;
+      padding: 5px;
       text-align: center;
-      vertical-align: middle;
-      cursor: grab; /* курсор при наведении */
+      cursor: move; 
     }
 
-    /* Правильно/неправильно */
+    .drop-zone {
+      width: 200px;
+      height: 200px;
+      border: 2px dotted #999;
+      margin: 10px;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+    }
+
     .correct {
       border-color: green;
     }
@@ -26,172 +31,270 @@
       border-color: red;
     }
 
-    /* Зоны для сброса */
-    .drop-zone {
-      width: 150px;
-      height: 150px;
-      border: 2px dashed #ccc;
-      margin: 10px;
-      display: inline-block;
-      vertical-align: top;
-    }
-
-    /* Изначально прячем сообщение */
+    /* Стили для всплывающего сообщения */
     #message-classification {
       display: none;
-      color: green;
-      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid green;
+      background-color: #d4ffd4;
+      width: fit-content;
     }
 
-    /* Ограничим размеры картинки внутри draggable-блока, если нужно */
-    img {
-      max-width: 80px;
-      height: auto;
+    /* Стили для перетаскиваемого клона на мобильном */
+    .drag-clone {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none; /* чтобы пальцем можно было «касаться» элементов под клоном */
+      opacity: 0.8;
+      z-index: 9999;
+      border: 2px solid #999;
+      background: #f9f9f9;
     }
   </style>
 </head>
 <body>
+  <div id="divContainer"></div>
 
-<!-- Контейнер, куда мы складываем все draggable-блоки в разбросе -->
-<div id="divContainer"></div>
+  <div id="zone-rgb" class="drop-zone" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+  <div id="zone-cmyk" class="drop-zone" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+  <div id="zone-lab" class="drop-zone" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+  <div id="zone-hsv" class="drop-zone" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
 
-<!-- Контейнеры-категории -->
-<div id="zone-rgb"  class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-  RGB
-</div>
+  <div id="message-classification">Все элементы на местах!</div>
 
-<div id="zone-cmyk" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-  CMYK
-</div>
+  <script>
+    const itemsData = [
+      {
+        id: "rgb_item",
+        label: `<p>RGB</p><img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Venn_diagram_rgb.svg/220px-Venn_diagram_rgb.svg.png" 
+                  alt="RGB diagram"
+                  draggable="false"
+                  width="120px"
+                >`,
+        category: "zone-rgb"
+      },
+      {
+        id: "cmyk_item",
+        label: `<p>CMYK</p><img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Polygraphic_Substractive_CMY.png/220px-Polygraphic_Substractive_CMY.png" 
+                  alt="CMYK diagram"
+                  draggable="false"
+                  width="120px"
+                >`,
+        category: "zone-cmyk"
+      },
+      {
+        id: "lab_item",
+        label: `<p>Lab</p><img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Color_space_CIE_1976_%28LUV%29%2B%28Lab%29%2BcolorTemp.png" 
+                  alt="LAB diagram"
+                  draggable="false"
+                  width="120px"
+                >`,
+        category: "zone-lab"
+      },
+      {
+        id: "hsv_item",
+        label: `<p>HSV</p><img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/HSV_color_solid_cylinder.png/1200px-HSV_color_solid_cylinder.png" 
+                  alt="HSV diagram"
+                  draggable="false"
+                  width="120px"
+                >`,
+        category: "zone-hsv"
+      },
+    ];
 
-<div id="zone-lab"  class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-  LAB
-</div>
+    const totalItems = itemsData.length;
+    let correctCount = 0;
 
-<div id="zone-hsv"  class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-  HSV
-</div>
-
-<!-- Сообщение, которое покажем, когда все блоки окажутся на местах -->
-<p id="message-classification">Все элементы на своих местах!</p>
-
-<script>
-  // Массив всех элементов с их "правильной" категорией
-  // (category указывает на ID контейнера, куда надо поместить)
-  const itemsData = [
-    {
-      id: "rgb_item",
-      // Вместо текста — картинка (innerHTML)
-      label: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Venn_diagram_rgb.svg/220px-Venn_diagram_rgb.svg.png" 
-                   alt="RGB diagram">`,
-      category: "zone-rgb"
-    },
-    {
-      id: "cmyk_item",
-      label: "C1",
-      category: "zone-cmyk"
-    },
-    {
-      id: "lab_item",
-      label: "$A$1",
-      category: "zone-lab"
-    },
-    {
-      id: "hsv_item",
-      label: "$C$1",
-      category: "zone-hsv"
-    }
-  ];
-
-  // Общее количество элементов
-  const totalItems = itemsData.length;
-
-  // Текущее количество элементов, стоящих в правильной категории
-  let correctCount = 0;
-
-  // Функция для перемешивания массива (Fisher–Yates shuffle)
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  // Перемешиваем элементы
-  shuffle(itemsData);
-
-  // Создаем блоки в случайном порядке внутри divContainer
-  const divContainer = document.getElementById("divContainer");
-  itemsData.forEach(item => {
-    const div = document.createElement("div");
-    // ID будет вроде "rgb_item", "cmyk_item" и т.д.
-    div.id = item.id;
-    // Ставим внутрь либо текст, либо <img> — через innerHTML
-    div.innerHTML = item.label;
-
-    // Делаем блок перетаскиваемым
-    div.className = "draggable-item";
-    div.draggable = true;
-    div.ondragstart = drag;
-
-    // Добавляем в общий контейнер
-    divContainer.appendChild(div);
-  });
-
-  // Разрешаем сброс элементов (drop) в зоны
-  function allowDrop(event) {
-    event.preventDefault();
-  }
-
-  // Запоминаем, какой элемент начали перетаскивать
-  function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-  }
-
-  // При отпускании элемента в зону
-  function drop(event) {
-    event.preventDefault();
-    const itemId = event.dataTransfer.getData("text");
-    const draggedItem = document.getElementById(itemId);
-    const dropZoneId = event.currentTarget.id; // ID контейнера, куда бросили
-
-    // Добавляем элемент в целевую категорию
-    event.currentTarget.appendChild(draggedItem);
-
-    // Найдём объект с данными по этому элементу
-    const itemData = itemsData.find(item => item.id === itemId);
-
-    // Проверим, верно ли элемент помещён
-    if (itemData.category === dropZoneId) {
-      // Если до этого блок не был "correct" — увеличим счётчик
-      if (!draggedItem.classList.contains("correct")) {
-        correctCount++;
+    // Перемешиваем (Fisher–Yates)
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
       }
-      draggedItem.classList.remove("incorrect");
-      draggedItem.classList.add("correct");
-    } else {
-      // Если раньше блок стоял верно, а теперь нет, уменьшим счётчик
-      if (draggedItem.classList.contains("correct")) {
-        correctCount--;
+    }
+    shuffle(itemsData);
+
+    // Создаём draggable-блоки
+    const divContainer = document.getElementById("divContainer");
+    itemsData.forEach(item => {
+      const div = document.createElement("div");
+      div.id = item.id;
+      div.innerHTML = item.label;
+      div.className = "draggable-item";
+      div.draggable = true;
+      div.ondragstart = drag;
+      divContainer.appendChild(div);
+
+      // Добавляем обработчики тач-событий для мобильных устройств
+      div.addEventListener("touchstart", touchStart, { passive: false });
+      div.addEventListener("touchmove", touchMove, { passive: false });
+      div.addEventListener("touchend", touchEnd, { passive: false });
+    });
+
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      // Запоминаем ID того, что тянем
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const itemId = event.dataTransfer.getData("text");
+      const draggedItem = document.getElementById(itemId);
+      const dropZoneId = event.currentTarget.id;
+
+      // Добавляем элемент в drop-зону
+      event.currentTarget.appendChild(draggedItem);
+
+      checkCorrect(itemId, dropZoneId, draggedItem);
+    }
+
+    function checkCorrect(itemId, dropZoneId, draggedItem) {
+      // Проверяем, верно ли
+      const itemData = itemsData.find(i => i.id === itemId);
+      if (itemData.category === dropZoneId) {
+        if (!draggedItem.classList.contains("correct")) {
+          correctCount++;
+        }
+        draggedItem.classList.remove("incorrect");
+        draggedItem.classList.add("correct");
+      } else {
+        if (draggedItem.classList.contains("correct")) {
+          correctCount--;
+        }
+        draggedItem.classList.remove("correct");
+        draggedItem.classList.add("incorrect");
       }
-      draggedItem.classList.remove("correct");
-      draggedItem.classList.add("incorrect");
+
+      // Если все на местах
+      if (correctCount === totalItems) {
+        document.getElementById("message-classification").style.display = "block";
+      }
     }
 
-    // Если все элементы на своих местах — показываем сообщение
-    if (correctCount === totalItems) {
-      const messageElem = document.getElementById("message-classification");
-      messageElem.style.display = "block"; // Делаем <p> видимым
-    }
-  }
-</script>
+    // -- Блок кода для тач-событий на мобильных устройствах --
+    let currentTouchItem = null;    // как будто «draggedItem»
+    let cloneEl = null;            // клон элемента, который двигаем
+    let offsetX = 0;
+    let offsetY = 0;
 
+    function touchStart(e) {
+      // Берём первый палец
+      const touch = e.changedTouches[0];
+      // Сохраняем «целевой» элемент
+      currentTouchItem = e.currentTarget;
+
+      // Создаём клон, чтобы двигать его за пальцем
+      cloneEl = currentTouchItem.cloneNode(true);
+      cloneEl.classList.add("drag-clone");
+      document.body.appendChild(cloneEl);
+
+      // Сдвиг, чтобы палец не всегда был в левом верхнем углу
+      const rect = currentTouchItem.getBoundingClientRect();
+      offsetX = touch.clientX - rect.left;
+      offsetY = touch.clientY - rect.top;
+
+      // Скрываем оригинальный элемент (если хочется, чтобы он «пропал»)
+      // currentTouchItem.style.opacity = "0.2";
+
+      // Проставим позицию клона
+      moveClone(touch.clientX, touch.clientY);
+      
+      // Останавливаем возможный скролл
+      e.preventDefault();
+    }
+
+    function touchMove(e) {
+      const touch = e.changedTouches[0];
+      if (!cloneEl) return;
+
+      // Двигаем клон за пальцем
+      moveClone(touch.clientX, touch.clientY);
+      
+      e.preventDefault();
+    }
+
+    function touchEnd(e) {
+      if (!cloneEl) return;
+      const touch = e.changedTouches[0];
+      
+      // Определяем, над какой зоной отпустили
+      const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+
+      // Удаляем клон
+      cloneEl.remove();
+      cloneEl = null;
+
+      // currentTouchItem.style.opacity = "1.0"; // восстанавливаем видимость, если скрывали
+
+      // Если «зона сброса» найдена
+      if (dropTarget) {
+        // Ищем ближайший родитель drop-зоны
+        const dropZone = findDropZone(dropTarget);
+        if (dropZone) {
+          // Добавляем элемент в эту drop-зону
+          dropZone.appendChild(currentTouchItem);
+
+          // Проверяем корректность
+          checkCorrect(currentTouchItem.id, dropZone.id, currentTouchItem);
+        }
+      }
+
+      currentTouchItem = null;
+      offsetX = 0;
+      offsetY = 0;
+    }
+
+    function moveClone(x, y) {
+      cloneEl.style.left = (x - offsetX) + "px";
+      cloneEl.style.top = (y - offsetY) + "px";
+    }
+
+    // Вспомогательная функция - ищем родительскую drop-зону
+    function findDropZone(el) {
+      if (!el) return null;
+      if (el.classList.contains("drop-zone")) {
+        return el;
+      }
+      return findDropZone(el.parentElement);
+    }
+  </script>
 </body>
 </html>
 
 
 
+
 <!-- 
+Что здесь важно?
+У родительского блока стоит draggable="true".
+У картинки внутри него стоит draggable="false". И плюс pointer-events: none;, чтобы «клики» регистрировались именно на <div>.
+Таким образом элемент-текст и элемент-картинка будут перетаскиваться одинаково (именно <div>, а не <img>).
+
+2. Или наоборот — «дёргать» саму картинку, отключив её дефолтное поведение
+Второй путь — если вы специально хотите, чтобы «тянулась» сама картинка (а не родительский div). Тогда:
+
+Ставим draggable="true" прямо на <img>.
+Вешаем ondragstart="drag(event)" тоже на <img>.
+Но тогда нужно, чтобы у div не было draggable="true", иначе оба элемента будут считать себя перетаскиваемыми.
+Однако на практике первый способ (с pointer-events: none; и draggable="false" у картинки) более надёжный, потому что он даёт единое поведение для любых вложенных элементов (картинка, текст, формулы и т.д.).
+
+Частые ошибки, из-за которых блок с картинкой не «тянется»
+Совпадение id родительского контейнера и drag-элемента (уже разобрались, что надо разделять, напр. zone-rgb vs. rgb_item).
+Не тот элемент имеет draggable="true" — иногда по ошибке атрибут ставят на <img>, а тянут <div> (или наоборот).
+Сквозные клики — браузер может перехватывать drag-события на самой картинке, и тогда «родительский» dnd не срабатывает. Исправляется pointer-events: none; или draggable="false" на <img>.
+CSS-переопределения — бывают темы, где div { user-select: none; } ломает dnd. Нужно проверить в консоли DevTools, нет ли конфликтующих стилей.
+
+===============================================================================
 1. Дать разные ID контейнерам и элементам
 Сделаем так:
 
@@ -207,15 +310,4 @@ lab_item,
 hsv_item.
 При этом в объекте itemsData в поле category мы будем указывать ID контейнера, а не старое "rgb".
 В HTML-коде проверять будем, совпадает ли itemData.category с dropZoneId.
-
-================================================================================
-
-Когда у контейнера и у перетаскиваемого элемента один и тот же id, браузер может некорректно понимать, что именно мы «тащим»: родителя или ребёнка.
-Теперь мы чётко разделили:
-«зона-категория» имеет id="zone-rgb",
-«перетаскиваемый элемент» имеет id="rgb_item".
-В itemsData сказано, что rgb_item должен попадать в зону с id="zone-rgb".
-Проверка идёт по совпадению itemData.category === dropZoneId, то есть "zone-rgb" === "zone-rgb".
-С таким подходом картинка будет перетаскиваться и логика «правильно/неправильно» будет работать корректно.
-
 -->
